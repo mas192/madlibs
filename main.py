@@ -1,16 +1,44 @@
-# This is a sample Python script.
+# import modules
+import os
+import web
+import random
+import urllib.request
+import json
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# url = 'http://madlibz.herokuapp.com/api/random?minlength=5&maxlength=25'
+#
+#
+# def getRandomMadlibs(url):
+#     madLibUrl = urllib.request.urlopen(url)
+#     print('Madlib', str(madLibUrl.getcode()))
+#     madLib = json.load(madLibUrl)
+#     print(madLib)
+
+# set urls
+
+urls = (
+    '/',
+    'index',
+    '/api',
+    'api',
+    '/api/(.*)',
+    'getMadlibs'
+)
+
+# setup app and render
+
+webApp = web.application(urls, globals())
+render = web.template.render('templates/', base="layout")
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# / Route
+class index(object):
+    def GET(self):
+        return render.index(output="", title="")
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    webApp.run()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
