@@ -32,13 +32,33 @@ render = web.template.render('templates/', base="layout")
 
 
 # / Route
-class index(object):
+class Index(object):
     def GET(self):
         return render.index(output="", title="")
+
+    def POST(self):
+        form = web.input()
+        output = ""
+        title = form["title"]
+        for i in range(0, len(form) / 2):
+            v = "v" + str(i) if "v" + str(i) in form else ""
+            b = "b" + str(i)
+            if v in form:
+                output += form(v)
+            if b in form:
+                output += form(b)
+        return render.index(output, title=title)
+
+
+# /api route
+class Api(object):
+    def GET(self):
+        return render.api()
+
+
+# /api/random route
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     webApp.run()
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
